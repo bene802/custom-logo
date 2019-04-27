@@ -10,10 +10,12 @@ const url =
 
 class MySideNav extends React.Component {
   state = {
-    data: "data from parent",
-    file: "",
-    logoPreview: "",
-    logo: ""
+    emailLogoPreview: "",
+    emailLogo: "",
+    emailFile: "",
+    webLogoPreview: "",
+    webLogo: "",
+    webFile: ""
   };
 
   componentDidMount = () => {
@@ -24,26 +26,55 @@ class MySideNav extends React.Component {
       var reader = new FileReader();
       reader.readAsDataURL(request.response);
       reader.onload = e => {
-        this.setState({ logo: e.target.result });
+        this.setState({ emailLogo: e.target.result, webLogo: e.target.result });
       };
     };
     request.send();
   };
 
-  handleSubmit = e => {
+  handleEmailSubmit = e => {
     e.preventDefault();
-    const newLogo = this.state.logoPreview;
-    this.setState({ logo: newLogo });
+    if (this.state.emailFile.size / 1000000 > 1) {
+      this.setState({ emailLogoPreview: "" });
+      alert("Image size should smaller than 1 Mb");
+    } else {
+      const newEmailLogo = this.state.emailLogoPreview;
+      this.setState({ emailLogo: newEmailLogo });
+    }
   };
 
-  handleImageChange = e => {
+  handleWebSubmit = e => {
+    e.preventDefault();
+    if (this.state.webFile.size / 1000000 > 1) {
+      this.setState({ webLogoPreview: "" });
+      alert("Image size should smaller than 1 Mb");
+    } else {
+      const newWebLogo = this.state.webLogoPreview;
+      this.setState({ webLogo: newWebLogo });
+    }
+  };
+
+  handleEmailChange = e => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = () => {
       this.setState({
-        file: file,
-        logoPreview: reader.result
+        emailLogoPreview: reader.result,
+        emailFile: file
+      });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  handleWebChange = e => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        webLogoPreview: reader.result,
+        webFile: file
       });
     };
     reader.readAsDataURL(file);
@@ -89,20 +120,32 @@ class MySideNav extends React.Component {
                 <Route
                   path="/"
                   exact
-                  component={props => <Home logo={this.state.logo} />}
+                  component={props => (
+                    <Home
+                      emailLogo={this.state.emailLogo}
+                      webLogo={this.state.webLogo}
+                    />
+                  )}
                 />
                 <Route
                   path="/home"
-                  component={props => <Home logo={this.state.logo} />}
+                  component={props => (
+                    <Home
+                      emailLogo={this.state.emailLogo}
+                      webLogo={this.state.webLogo}
+                    />
+                  )}
                 />
                 <Route
                   path="/settings"
                   component={props => (
                     <Setting
-                      file={this.state.file}
-                      logoPreview={this.state.logoPreview}
-                      handleSubmit={this.handleSubmit}
-                      handleImageChange={this.handleImageChange}
+                      emailLogoPreview={this.state.emailLogoPreview}
+                      handleEmailSubmit={this.handleEmailSubmit}
+                      handleEmailChange={this.handleEmailChange}
+                      webLogoPreview={this.state.webLogoPreview}
+                      handleWebSubmit={this.handleWebSubmit}
+                      handleWebChange={this.handleWebChange}
                     />
                   )}
                 />
