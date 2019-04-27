@@ -1,32 +1,33 @@
-import React, { Component } from "react";
-import ImageUpload from "./ImageUpload";
-
-class Setting extends Component {
+import React from "react";
+class Setting extends React.Component {
   render() {
+    let logoPreview = this.props.logoPreview;
+    let $imagePreview = null;
+    if (logoPreview) {
+      $imagePreview = <img src={logoPreview} alt="Logo" />;
+    } else {
+      $imagePreview = (
+        <div className="previewText">Please select an Image for Preview</div>
+      );
+    }
+
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <div>
-              <ImageUpload
-                file={this.props.file}
-                logoPreview={this.props.logoPreview}
-                handleSubmit={this.props.handleSubmit}
-                handleImageChange={this.props.handleImageChange}
-              />
-            </div>
-          </div>
-          <div className="col">
-            <div>
-              <ImageUpload
-                file={this.props.file}
-                logoPreview={this.props.logoPreview}
-                handleSubmit={this.props.handleSubmit}
-                handleImageChange={this.props.handleImageChange}
-              />
-            </div>
-          </div>
-        </div>
+      <div className="previewComponent">
+        <form onSubmit={e => this.props.handleSubmit(e)}>
+          <input
+            className="fileInput"
+            type="file"
+            onChange={e => this.props.handleImageChange(e)}
+          />
+          <button
+            className="submitButton"
+            type="submit"
+            onClick={e => this.props.handleSubmit(e)}
+          >
+            Upload Image
+          </button>
+        </form>
+        <div className="">{$imagePreview}</div>
       </div>
     );
   }

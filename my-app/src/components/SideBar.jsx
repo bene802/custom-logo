@@ -86,7 +86,11 @@ class MySideNav extends React.Component {
                 </SideNav.Nav>
               </SideNav>
               <main>
-                <Route path="/" exact component={props => <Home />} />
+                <Route
+                  path="/"
+                  exact
+                  component={props => <Home logo={this.state.logo} />}
+                />
                 <Route
                   path="/home"
                   component={props => <Home logo={this.state.logo} />}
