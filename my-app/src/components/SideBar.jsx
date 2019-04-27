@@ -19,17 +19,45 @@ class MySideNav extends React.Component {
   };
 
   componentDidMount = () => {
-    var request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.responseType = "blob";
-    request.onload = () => {
-      var reader = new FileReader();
-      reader.readAsDataURL(request.response);
-      reader.onload = e => {
-        this.setState({ emailLogo: e.target.result, webLogo: e.target.result });
-      };
+    // retrieve data from localStorage first.
+    window.onload = () => {
+      var emailLogo = localStorage.getItem("emailLogo");
+      if (emailLogo !== null) {
+        this.setState({ emailLogo: emailLogo });
+      } else {
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.responseType = "blob";
+        request.onload = () => {
+          var reader = new FileReader();
+          reader.readAsDataURL(request.response);
+          reader.onload = e => {
+            this.setState({
+              emailLogo: e.target.result
+            });
+          };
+        };
+        request.send();
+      }
+      var webLogo = localStorage.getItem("webLogo");
+      if (webLogo !== null) {
+        this.setState({ webLogo: webLogo });
+      } else {
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.responseType = "blob";
+        request.onload = () => {
+          var reader = new FileReader();
+          reader.readAsDataURL(request.response);
+          reader.onload = e => {
+            this.setState({
+              webLogo: e.target.result
+            });
+          };
+        };
+        request.send();
+      }
     };
-    request.send();
   };
 
   handleEmailSubmit = e => {
@@ -39,7 +67,12 @@ class MySideNav extends React.Component {
       alert("Image size should smaller than 1 Mb");
     } else {
       const newEmailLogo = this.state.emailLogoPreview;
+      // store data to local storage
+      window.onbeforeunload = function() {
+        localStorage.setItem("emailLogo", newEmailLogo);
+      };
       this.setState({ emailLogo: newEmailLogo });
+      alert("Logo uploaded successfully!");
     }
   };
 
@@ -50,7 +83,12 @@ class MySideNav extends React.Component {
       alert("Image size should smaller than 1 Mb");
     } else {
       const newWebLogo = this.state.webLogoPreview;
+      // store data to local storage
+      window.onbeforeunload = function() {
+        localStorage.setItem("webLogo", newWebLogo);
+      };
       this.setState({ webLogo: newWebLogo });
+      alert("Logo uploaded successfully!");
     }
   };
 
