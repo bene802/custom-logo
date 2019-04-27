@@ -4,7 +4,7 @@ class ImageUpload extends React.Component {
     let logoPreview = this.props.logoPreview;
     let $imagePreview = null;
     if (logoPreview) {
-      $imagePreview = <img src={logoPreview} />;
+      $imagePreview = <img src={logoPreview} alt="Logo" />;
     } else {
       $imagePreview = (
         <div className="previewText">Please select an Image for Preview</div>

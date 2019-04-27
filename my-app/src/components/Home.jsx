@@ -4,7 +4,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <img src={this.props.logo} />
+        <img src={this.props.logo} alt="Logo" />
       </div>
     );
   }
