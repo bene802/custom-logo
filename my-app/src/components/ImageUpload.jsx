@@ -1,11 +1,10 @@
 import React from "react";
 class ImageUpload extends React.Component {
   render() {
-    let imagePreviewUrl = this.props.imagePreviewUrl;
-    console.log(imagePreviewUrl);
+    let logoPreview = this.props.logoPreview;
     let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = <img src={imagePreviewUrl} />;
+    if (logoPreview) {
+      $imagePreview = <img src={logoPreview} />;
     } else {
       $imagePreview = (
         <div className="previewText">Please select an Image for Preview</div>
