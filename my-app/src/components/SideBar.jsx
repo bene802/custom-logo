@@ -26,6 +26,22 @@ class MySideNav extends React.Component {
     logo: ""
   };
 
+  componentDidMount = () => {
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.responseType = "blob";
+    request.onload = () => {
+      var reader = new FileReader();
+      reader.readAsDataURL(request.response);
+      reader.onload = e => {
+        //console.log("DataURL:", e.target.result);
+        this.setState({ logo: e.target.result });
+      };
+    };
+    request.send();
+    //console.log(file);
+  };
+
   parentFunc = () => {
     this.setState({ data: "new data" });
     console.log(this.state.data);
@@ -98,17 +114,14 @@ class MySideNav extends React.Component {
 
   handleImageChange = e => {
     e.preventDefault();
-
     let reader = new FileReader();
     let file = e.target.files[0];
-
     reader.onloadend = () => {
       this.setState({
         file: file,
         imagePreviewUrl: reader.result
       });
     };
-
     reader.readAsDataURL(file);
   };
 
