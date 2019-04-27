@@ -10,7 +10,16 @@ class Setting extends Component {
         Setting
         <button onClick={() => this.props.getImageInfo()}>click</button>
         <div>
-          <ImageUpload />
+          <ImageUpload
+            data={this.props.data}
+            parentFunc={this.props.parentFunc}
+            getBase64Image={this.props.getBase64Image}
+            getImageInfo={this.props.getImageInfo}
+            file={this.props.file}
+            imagePreviewUrl={this.props.imagePreviewUrl}
+            handleSubmit={this.props.handleSubmit}
+            handleImageChange={this.props.handleImageChange}
+          />
         </div>
       </div>
     );

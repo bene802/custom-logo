@@ -11,11 +11,7 @@ class Home extends Component {
     );
     return (
       <div>
-        {this.props.data}
-        <Example data={data} />
-        <img src={`data:image/jpeg;base64,` + data} />
-        <div>{this.props.str}</div>
-        <img src={this.props.str} />
+        <img src={this.props.logo} />
       </div>
     );
   }
