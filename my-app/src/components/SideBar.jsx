@@ -21,15 +21,15 @@ class MySideNav extends React.Component {
   componentDidMount = () => {
     // retrieve data from localStorage first.
     window.onload = () => {
-      var emailLogo = localStorage.getItem("emailLogo");
+      const emailLogo = localStorage.getItem("emailLogo");
       if (emailLogo !== null) {
         this.setState({ emailLogo: emailLogo });
       } else {
-        var request = new XMLHttpRequest();
+        let request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.responseType = "blob";
         request.onload = () => {
-          var reader = new FileReader();
+          let reader = new FileReader();
           reader.readAsDataURL(request.response);
           reader.onload = e => {
             this.setState({
@@ -39,15 +39,15 @@ class MySideNav extends React.Component {
         };
         request.send();
       }
-      var webLogo = localStorage.getItem("webLogo");
+      const webLogo = localStorage.getItem("webLogo");
       if (webLogo !== null) {
         this.setState({ webLogo: webLogo });
       } else {
-        var request = new XMLHttpRequest();
+        let request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.responseType = "blob";
         request.onload = () => {
-          var reader = new FileReader();
+          let reader = new FileReader();
           reader.readAsDataURL(request.response);
           reader.onload = e => {
             this.setState({
@@ -66,7 +66,6 @@ class MySideNav extends React.Component {
       this.setState({ emailLogoPreview: "" });
       alert("Image size should smaller than 1 Mb");
     } else if (this.state.emailFile !== "") {
-      console.log(this.state);
       const newEmailLogo = this.state.emailLogoPreview;
       // store data to local storage
       window.onbeforeunload = function() {
