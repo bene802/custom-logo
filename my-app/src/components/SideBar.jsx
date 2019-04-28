@@ -65,7 +65,8 @@ class MySideNav extends React.Component {
     if (this.state.emailFile.size / 1000000 > 1) {
       this.setState({ emailLogoPreview: "" });
       alert("Image size should smaller than 1 Mb");
-    } else {
+    } else if (this.state.emailFile !== "") {
+      console.log(this.state);
       const newEmailLogo = this.state.emailLogoPreview;
       // store data to local storage
       window.onbeforeunload = function() {
@@ -73,6 +74,8 @@ class MySideNav extends React.Component {
       };
       this.setState({ emailLogo: newEmailLogo });
       alert("Logo uploaded successfully!");
+    } else if (this.state.emailFile === "") {
+      alert("Please upload image!");
     }
   };
 
@@ -81,7 +84,7 @@ class MySideNav extends React.Component {
     if (this.state.webFile.size / 1000000 > 1) {
       this.setState({ webLogoPreview: "" });
       alert("Image size should smaller than 1 Mb");
-    } else {
+    } else if (this.state.webFile !== "") {
       const newWebLogo = this.state.webLogoPreview;
       // store data to local storage
       window.onbeforeunload = function() {
@@ -89,6 +92,8 @@ class MySideNav extends React.Component {
       };
       this.setState({ webLogo: newWebLogo });
       alert("Logo uploaded successfully!");
+    } else if (this.state.webFile === "") {
+      alert("Please upload image!");
     }
   };
 

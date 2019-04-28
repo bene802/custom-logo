@@ -4,24 +4,21 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <h2>Email Logo: </h2>
-          <img
-            src={this.props.emailLogo}
-            height="250"
-            width="250"
-            alt="Email Logo"
-          />
+        <div className="top50 Div1">
+          <p>Welcome & Queue Emails</p>
+          <div className="imgShow">
+            <img src={this.props.emailLogo} alt="Email Logo" />
+          </div>
         </div>
-        <div className="row top30">
-          <h2>Web Logo: </h2>
-          <img
-            src={this.props.webLogo}
-            height="250"
-            width="250"
-            alt="Web Logo"
-            style={{ backgroundColor: "#808080" }}
-          />
+        <div className="top50 Div2">
+          <p>Web User Interface</p>
+          <div className="imgShow">
+            <img
+              src={this.props.webLogo}
+              alt="Web Logo"
+              style={{ backgroundColor: "#808080" }}
+            />
+          </div>
         </div>
       </div>
     );

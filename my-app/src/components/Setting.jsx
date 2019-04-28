@@ -34,7 +34,8 @@ class Setting extends React.Component {
 
     return (
       <div className="container">
-        <div className="row top50">
+        <div className="top50 Div1">
+          <p>Welcome & Queue Emails</p>
           <form onSubmit={e => this.props.handleEmailSubmit(e)}>
             <input
               className="fileInput"
@@ -49,9 +50,10 @@ class Setting extends React.Component {
               Upload Image
             </button>
           </form>
-          <div className="">{$emailImagePreview}</div>
+          <div className="imgPreview">{$emailImagePreview}</div>
         </div>
-        <div className="row top100">
+        <div className="top50 Div2">
+          <p>Web User Interface</p>
           <form onSubmit={e => this.props.handleWebSubmit(e)}>
             <input
               className="fileInput"
@@ -66,7 +68,7 @@ class Setting extends React.Component {
               Upload Image
             </button>
           </form>
-          <div className="">{$webImagePreview}</div>
+          <div className="imgPreview">{$webImagePreview}</div>
         </div>
       </div>
     );
