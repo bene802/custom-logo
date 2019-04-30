@@ -8,6 +8,23 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 const url =
   "https://s3.amazonaws.com/images.clearviewsocial/CVSLogo.FullColor.RGB+(2).png";
 
+function arrayBufferToBase64(buffer) {
+  var binary = "";
+  var bytes = [].slice.call(new Uint8Array(buffer));
+
+  bytes.forEach(b => (binary += String.fromCharCode(b)));
+
+  return window.btoa(binary);
+}
+var headers = new Headers({ "X-Mashape-Key": "API_KEY" });
+var options = {
+  method: "GET",
+  headers: headers,
+  mode: "cors",
+  cache: "default"
+};
+var request = new Request(url);
+
 class MySideNav extends React.Component {
   state = {
     emailLogoPreview: "",
@@ -19,45 +36,30 @@ class MySideNav extends React.Component {
   };
 
   componentDidMount = () => {
-    // retrieve data from localStorage first.
-    window.onload = () => {
-      const emailLogo = localStorage.getItem("emailLogo");
-      if (emailLogo !== null) {
-        this.setState({ emailLogo: emailLogo });
-      } else {
-        let request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.responseType = "blob";
-        request.onload = () => {
-          let reader = new FileReader();
-          reader.readAsDataURL(request.response);
-          reader.onload = e => {
-            this.setState({
-              emailLogo: e.target.result
-            });
-          };
-        };
-        request.send();
-      }
-      const webLogo = localStorage.getItem("webLogo");
-      if (webLogo !== null) {
-        this.setState({ webLogo: webLogo });
-      } else {
-        let request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.responseType = "blob";
-        request.onload = () => {
-          let reader = new FileReader();
-          reader.readAsDataURL(request.response);
-          reader.onload = e => {
-            this.setState({
-              webLogo: e.target.result
-            });
-          };
-        };
-        request.send();
-      }
-    };
+    //retrieve data from localStorage first.
+    const emailLogo = localStorage.getItem("emailLogo");
+    const webLogo = localStorage.getItem("webLogo");
+
+    fetch(request, options).then(response => {
+      response.arrayBuffer().then(buffer => {
+        var base64Flag = "data:image/jpeg;base64,";
+        var imageStr = arrayBufferToBase64(buffer);
+        if (emailLogo !== null) {
+          this.setState({ emailLogo: emailLogo });
+        } else {
+          this.setState({
+            emailLogo: base64Flag + imageStr
+          });
+        }
+        if (webLogo !== null) {
+          this.setState({ webLogo: webLogo });
+        } else {
+          this.setState({
+            webLogo: base64Flag + imageStr
+          });
+        }
+      });
+    });
   };
 
   handleEmailSubmit = e => {
