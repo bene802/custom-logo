@@ -17,6 +17,7 @@ Demo video: https://youtu.be/w3JCDpYjeVQ
 * Local Storage
 * Bootstrap
 * HTML/CSS
+* handle CORS on the client side
 
 ## Installing
 Frontend (http://localhost:3000/)
