@@ -21,6 +21,8 @@ Demo video: https://youtu.be/w3JCDpYjeVQ
 ## Installing
 Frontend (http://localhost:3000/)
 ```
+git clone git@github.com:bene802/custom-logo.git
+npm install
 npm start
 ```
 
